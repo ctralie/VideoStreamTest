@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<title>Video Tester</title>
+<meta charset="utf-8">
+
+<script src="canvas.js"></script>
+
+</head>
+
+<body style='margin : 0px; overflow: hidden; font-family: Monospace;'>
+<script>
+document.addEventListener('touchmove', function(e) {
+  e.preventDefault();
+});
+</script>
+
+<p id = "debugArea"></p>
+<canvas id="maincanvas"></canvas>
+
+<script>
+  let canvas = new CameraCanvas();
+</script>
+
+
+
+</body>
+</html>
