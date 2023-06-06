@@ -4,15 +4,12 @@ const CANVAS_FAC = 0.8;
 class CameraCanvas {
     constructor() {
         let video = document.createElement("video");
-        video.style = "display:none;";
+        //video.style = "display:none;";
         video.autoplay = true;
         video.loop = true;
         video.controls = true;
         this.video = video;
-
-        let renderArea = document.createElement("div");
-        renderArea.style = "float:left;";
-        this.renderArea = renderArea;
+        document.getElementById("videoArea").appendChild(video);
 
         let debugArea = document.getElementById("debugArea");
         this.debugArea = debugArea;
@@ -60,8 +57,8 @@ class CameraCanvas {
                 video.src = window.URL.createObjectURL(stream);
             }
             video.onloadeddata = function() {
-                that.initializeCanvas();
-                that.repaint();
+                //that.initializeCanvas();
+                //that.repaint();
             }
         }).catch(function(err) {
             console.log(err);
@@ -69,9 +66,7 @@ class CameraCanvas {
     }
 
     /**
-     * Initialize a canvas to which to draw the video frame,
-     * as well as a position tracker object to estimate positions
-     * on canvas of the appropriate size
+     * Initialize a canvas to which to draw the video frame
      */
     initializeCanvas() {
         const canvas = document.getElementById("maincanvas");
