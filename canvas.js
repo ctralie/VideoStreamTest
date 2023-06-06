@@ -4,12 +4,12 @@ const CANVAS_FAC = 0.8;
 class CameraCanvas {
     constructor() {
         let video = document.createElement("video");
-        video.style = "display:none;";
+        //video.style = "display:none;";
         // Suggested on https://github.com/jeeliz/jeelizFaceFilter/issues/14#issuecomment-682209245
-        /*video['style']['transform'] = 'scale(0.0001,0.0001)';
+        video['style']['transform'] = 'scale(0.0001,0.0001)';
         video['style']['position'] = 'fixed';
         video['style']['bottom'] = '0px';
-        video['style']['right'] = '0px';*/
+        video['style']['right'] = '0px';
 
 
         video.autoplay = true;
