@@ -4,15 +4,17 @@ const CANVAS_FAC = 0.8;
 class CameraCanvas {
     constructor() {
         let video = document.createElement("video");
-        //video.style = "display:none;";
+        video.style = "display:none;";
         // Suggested on https://github.com/jeeliz/jeelizFaceFilter/issues/14#issuecomment-682209245
-        video['style']['transform'] = 'scale(0.1,0.1)';
+        /*video['style']['transform'] = 'scale(0.0001,0.0001)';
         video['style']['position'] = 'fixed';
         video['style']['bottom'] = '0px';
-        video['style']['right'] = '0px';
+        video['style']['right'] = '0px';*/
 
 
         video.autoplay = true;
+        video.loop = true;
+        video.controls = true;
         this.video = video;
         document.getElementById("videoArea").appendChild(video);
 
@@ -92,6 +94,7 @@ class CameraCanvas {
         if (video.readyState === video.HAVE_ENOUGH_DATA) {
             this.debugArea.innerHTML += "Successful streaming<p>" + Math.round(1000/elapsed) + " fps</p>";
             context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            video.play();
         }
         else {
             this.debugArea.innerHTML += "<p>Not enough video data: video state " + video.readyState + "</p>";
