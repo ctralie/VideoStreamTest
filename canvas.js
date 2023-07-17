@@ -27,10 +27,7 @@ class CameraCanvas {
         const that = this;
         let video = document.createElement("video");
         // Suggested on https://github.com/jeeliz/jeelizFaceFilter/issues/14#issuecomment-682209245
-        /*video['style']['transform'] = 'scale(0.1,0.1)';
-        video['style']['position'] = 'fixed';
-        video['style']['bottom'] = '0px';
-        video['style']['right'] = '0px';*/
+        video['style']['transform'] = 'scale(0.1,0.1)';
         setUpperLeft(video);
         video.autoplay = true;
         video.muted = true;
