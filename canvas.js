@@ -27,6 +27,7 @@ class CameraCanvas {
 
         video.autoplay = true;
         video.muted = true;
+        video.playsinline = true;
         video.loop = true;
         video.controls = true;
         this.video = video;
@@ -112,7 +113,7 @@ class CameraCanvas {
             h *= fac;
             w *= fac;
         }
-        setWidthHeight(this.video, w, h);
+        setWidthHeight(this.video, 1, 1);
         setWidthHeight(this.canvas, w, h);
     }
 
@@ -128,6 +129,7 @@ class CameraCanvas {
             this.debugArea.innerHTML += "Successful streaming<p>" + Math.round(1000/elapsed) + " fps</p>";
 
             context.clearRect(0, 0, canvas.width, canvas.height);
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
             let cx = canvas.width/2 + this.dx;
             let cy = canvas.height/2;
             context.beginPath();
