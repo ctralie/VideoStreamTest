@@ -16,6 +16,8 @@ document.addEventListener('touchmove', function(e) {
 });
 </script>
 
+<button onclick = "start()">Start</button>
+
 <canvas id="maincanvas"></canvas>
 
 <div id="videoArea"></div>
@@ -25,6 +27,10 @@ document.addEventListener('touchmove', function(e) {
 
 <script>
   let canvas = new CameraCanvas();
+
+  function start() {
+    canvas.initializeVideo();
+  }
 </script>
 
 

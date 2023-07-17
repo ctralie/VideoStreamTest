@@ -14,34 +14,8 @@ function setWidthHeight(element, width, height) {
 
 class CameraCanvas {
     constructor() {
-        let video = document.createElement("video");
-        // Suggested on https://github.com/jeeliz/jeelizFaceFilter/issues/14#issuecomment-682209245
-        /*video['style']['transform'] = 'scale(0.1,0.1)';
-        video['style']['position'] = 'fixed';
-        video['style']['bottom'] = '0px';
-        video['style']['right'] = '0px';*/
-
-        window.onresize = this.resizeElements.bind(this);
-        setUpperLeft(video);
-
-
-        video.autoplay = true;
-        video.muted = true;
-        video.playsinline = true;
-        video.loop = true;
-        video.controls = true;
-        this.video = video;
-        document.getElementById("videoArea").appendChild(video);
-
         let debugArea = document.getElementById("debugArea");
         this.debugArea = debugArea;
-
-        if (document.readyState === "complete") {
-            this.initializeVideo();
-        }
-        else {
-            window.onload = this.initializeVideo.bind(this);
-        }
         this.dx = 0;
     }
 
@@ -51,7 +25,21 @@ class CameraCanvas {
      */
     initializeVideo() {
         const that = this;
-        const video = this.video;
+        let video = document.createElement("video");
+        // Suggested on https://github.com/jeeliz/jeelizFaceFilter/issues/14#issuecomment-682209245
+        /*video['style']['transform'] = 'scale(0.1,0.1)';
+        video['style']['position'] = 'fixed';
+        video['style']['bottom'] = '0px';
+        video['style']['right'] = '0px';*/
+        setUpperLeft(video);
+        video.autoplay = true;
+        video.muted = true;
+        video.playsinline = true;
+        video.loop = true;
+        video.controls = true;
+        this.video = video;
+        document.getElementById("videoArea").appendChild(video);
+        
         if (navigator.mediaDevices === undefined) {
             navigator.mediaDevices = {};
         }
@@ -100,6 +88,7 @@ class CameraCanvas {
         canvas.style["z-index"] = 10;
         this.canvas = canvas;
         this.context = canvas.getContext("2d");
+        window.onresize = this.resizeElements.bind(this);
         this.resizeElements();
     }
 
@@ -113,8 +102,12 @@ class CameraCanvas {
             h *= fac;
             w *= fac;
         }
-        setWidthHeight(this.video, 1, 1);
-        setWidthHeight(this.canvas, w, h);
+        if (!(this.video == undefined)) {
+            setWidthHeight(this.video, 1, 1);
+        }
+        if (!(this.canvas == undefined)) {
+            setWidthHeight(this.canvas, w, h);
+        }
     }
 
     repaint() {
