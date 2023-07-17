@@ -80,7 +80,7 @@ class CameraCanvas {
                 video.src = window.URL.createObjectURL(stream);
             }
             video.onloadeddata = function() {
-                //that.initializeCanvas();
+                that.initializeCanvas();
                 that.repaint();
             }
         }).catch(function(err) {
@@ -113,7 +113,7 @@ class CameraCanvas {
             w *= fac;
         }
         setWidthHeight(this.video, w, h);
-        //setWidthHeight(this.canvas, w, h);
+        setWidthHeight(this.canvas, w, h);
     }
 
     repaint() {
