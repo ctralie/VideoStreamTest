@@ -30,8 +30,7 @@ class CameraCanvas {
         video['style']['transform'] = 'scale(0.1,0.1)';
         setUpperLeft(video);
         video.setAttribute("muted", '');
-        //video.setAttribute("playsinline", '');
-        video.playsinline = '';
+        video.setAttribute("playsinline", '');
         video.setAttribute("autoplay", '');
         video.setAttribute("loop", '');
         this.video = video;
