@@ -36,7 +36,6 @@ class CameraCanvas {
         video.muted = true;
         video.playsinline = true;
         video.loop = true;
-        video.controls = true;
         this.video = video;
         document.getElementById("videoArea").appendChild(video);
         
