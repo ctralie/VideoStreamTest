@@ -29,10 +29,10 @@ class CameraCanvas {
         // Suggested on https://github.com/jeeliz/jeelizFaceFilter/issues/14#issuecomment-682209245
         video['style']['transform'] = 'scale(0.1,0.1)';
         setUpperLeft(video);
-        video.autoplay = true;
-        video.muted = true;
-        video.playsinline = true;
-        video.loop = true;
+        video.setAttribute("muted", '');
+        video.setAttribute("playsinline", '');
+        video.setAttribute("autoplay", '');
+        video.setAttribute("loop", '');
         this.video = video;
         document.getElementById("videoArea").appendChild(video);
         
@@ -65,6 +65,7 @@ class CameraCanvas {
                 video.src = window.URL.createObjectURL(stream);
             }
             video.onloadeddata = function() {
+                video.play();
                 that.initializeCanvas();
                 that.repaint();
             }
