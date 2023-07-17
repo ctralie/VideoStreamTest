@@ -65,7 +65,7 @@ class CameraCanvas {
                 video.src = window.URL.createObjectURL(stream);
             }
             video.onloadeddata = function() {
-                video.play();
+                //video.play();
                 that.initializeCanvas();
                 that.repaint();
             }
