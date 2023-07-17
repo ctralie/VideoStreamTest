@@ -1,15 +1,23 @@
 const CANVAS_FAC = 0.8;
 
+function setFullScreenUpperLeft(element) {
+    element['style']['width'] = "100%";
+    element['style']['height'] = "100%";
+    element['style']['position'] = "fixed";
+    element['style']['top'] = 0;
+    element['style']['left'] = 0;
+}
 
 class CameraCanvas {
     constructor() {
         let video = document.createElement("video");
-        video.style = "display:none;";
         // Suggested on https://github.com/jeeliz/jeelizFaceFilter/issues/14#issuecomment-682209245
         /*video['style']['transform'] = 'scale(0.1,0.1)';
         video['style']['position'] = 'fixed';
         video['style']['bottom'] = '0px';
         video['style']['right'] = '0px';*/
+
+        setFullScreenUpperLeft(video);
 
 
         video.autoplay = true;
@@ -81,6 +89,8 @@ class CameraCanvas {
         const canvas = document.getElementById("maincanvas");
         canvas.width = this.video.videoWidth;
         canvas.height = this.video.videoHeight;
+        setFullScreenUpperLeft(canvas);
+        canvas.style["z-index"] = 10;
         this.canvas = canvas;
         this.context = canvas.getContext("2d");
     }
@@ -95,8 +105,13 @@ class CameraCanvas {
         this.debugArea.innerHTML = "";
         if (video.readyState === video.HAVE_ENOUGH_DATA) {
             this.debugArea.innerHTML += "Successful streaming<p>" + Math.round(1000/elapsed) + " fps</p>";
-            context.drawImage(video, 0, 0, canvas.width, canvas.height);
-            video.play();
+
+            let cx = canvas.width/2;
+            let cy = canvas.height/2;
+            context.beginPath();
+            context.arc(cx, cy, 50, 0, 2*Math.PI, false);
+            context.fillStyle = "green";
+            context.fill();
         }
         else {
             this.debugArea.innerHTML += "<p>Not enough video data: video state " + video.readyState + "</p>";
