@@ -1,11 +1,15 @@
 const CANVAS_FAC = 0.8;
 
-function setFullScreenUpperLeft(element) {
-    element['style']['width'] = "100%";
-    element['style']['height'] = "100%";
-    element['style']['position'] = "fixed";
+function setUpperLeft(element) {
+    element['style']['position'] = "absolute";
     element['style']['top'] = 0;
     element['style']['left'] = 0;
+    element['style']['text-align'] = "left";
+}
+
+function setWidthHeight(element, width, height) {
+    element['style']['width'] = width + "px";
+    element['style']['height'] = height + "px";
 }
 
 class CameraCanvas {
@@ -17,7 +21,8 @@ class CameraCanvas {
         video['style']['bottom'] = '0px';
         video['style']['right'] = '0px';*/
 
-        setFullScreenUpperLeft(video);
+        window.onresize = this.resizeElements.bind(this);
+        setUpperLeft(video);
 
 
         video.autoplay = true;
@@ -36,6 +41,7 @@ class CameraCanvas {
         else {
             window.onload = this.initializeVideo.bind(this);
         }
+        this.dx = 0;
     }
 
     /**
@@ -89,10 +95,25 @@ class CameraCanvas {
         const canvas = document.getElementById("maincanvas");
         canvas.width = this.video.videoWidth;
         canvas.height = this.video.videoHeight;
-        setFullScreenUpperLeft(canvas);
+        setUpperLeft(canvas);
         canvas.style["z-index"] = 10;
         this.canvas = canvas;
         this.context = canvas.getContext("2d");
+        this.resizeElements();
+    }
+
+    resizeElements() {
+        let vw = this.video.videoWidth;
+        let vh = this.video.videoHeight;
+        let w = window.innerWidth;
+        let h = vh*w/vw;
+        if (h > window.innerHeight) {
+            const fac = window.innerHeight/h;
+            h *= fac;
+            w *= fac;
+        }
+        setWidthHeight(this.video, w, h);
+        setWidthHeight(this.canvas, w, h);
     }
 
     repaint() {
@@ -106,16 +127,19 @@ class CameraCanvas {
         if (video.readyState === video.HAVE_ENOUGH_DATA) {
             this.debugArea.innerHTML += "Successful streaming<p>" + Math.round(1000/elapsed) + " fps</p>";
 
-            let cx = canvas.width/2;
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            let cx = canvas.width/2 + this.dx;
             let cy = canvas.height/2;
             context.beginPath();
             context.arc(cx, cy, 50, 0, 2*Math.PI, false);
             context.fillStyle = "green";
             context.fill();
+            this.dx += 0.1;
         }
         else {
             this.debugArea.innerHTML += "<p>Not enough video data: video state " + video.readyState + "</p>";
         }
         requestAnimationFrame(this.repaint.bind(this));
+        //console.log("left " + video.offsetLeft + ", top " + video.offsetTop + ", width " + video.offsetWidth + ", height " + video.offsetHeight);
     }
 }
