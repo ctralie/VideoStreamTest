@@ -104,6 +104,7 @@ class CameraCanvas {
         if (!(this.canvas == undefined)) {
             setWidthHeight(this.canvas, w, h);
         }
+        this.canvas.style.transform = "rotate(90deg)";
     }
 
     repaint() {
@@ -119,13 +120,6 @@ class CameraCanvas {
 
             context.clearRect(0, 0, canvas.width, canvas.height);
             context.drawImage(video, 0, 0, canvas.width, canvas.height);
-            let cx = canvas.width/2 + this.dx;
-            let cy = canvas.height/2;
-            context.beginPath();
-            context.arc(cx, cy, 50, 0, 2*Math.PI, false);
-            context.fillStyle = "green";
-            context.fill();
-            this.dx += 0.1;
         }
         else {
             this.debugArea.innerHTML += "<p>Not enough video data: video state " + video.readyState + "</p>";
